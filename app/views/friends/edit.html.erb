@@ -1,0 +1,21 @@
+<%= form_with model: @friend do |form| %>
+<div>
+    <%=form.label :fullname%>
+    <%=form.text_area :fullname%>
+</div>
+<div>
+    <%=form.label :phone%>
+    <%=form.text_area :phone%>
+</div>
+<div>
+    <%=form.label :body%>
+    <%=form.text_area :body%>
+</div>
+<div>
+    <%= form.number_field :user_id ,id: :friend_user_id, class:"form-control",value:current_user.id , type: :hidden%>
+</div>
+
+<div>
+    <%=form.submit%>
+</div>
+<% end %>

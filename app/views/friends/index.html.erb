@@ -1,0 +1,57 @@
+<% if current_user && current_user.role == "admin" %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fullname</th>
+                <th scope="col">Role</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <% User.all.each do |user|%>
+            <tbody>
+                <% if user.role == "user" %>
+                    <td><%=user.firstname%></td>
+                    <td><%=user.role%></td>
+                    <td><%=user.email%></td>
+                    <td><%=link_to 'Destroy', user,class:"btn btn-primary", method: :delete, data: { confirm: 'Are you sure?' }%></td>    
+                <% end %>
+            </tbody> 
+        <% end %>
+    </table>       
+<% elsif current_user && current_user.role == "user" %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Fullname</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Body</th>
+                <% if user_signed_in? %>
+                    <th scope="col">Action</th>
+                <% end %>
+            </tr>
+        </thead>
+        <% @friends.each do |item| %>
+            <tbody>
+                <tr>
+                    <%if item.user == current_user%>
+                        <td><%=item.fullname%></td>
+                        <td><%=item.phone%></td>
+                        <td><%=item.body%></td>
+                        <td><a href = "/friends/<%=item.id%>",class="nav-link">Go To</a> 
+                        <td><%= link_to 'Destroy', item,class:"btn btn-primary", method: :delete, data: { confirm: 'Are you sure?' } %></td></td>       
+                    <% end %>
+                    <% if !user_signed_in? %>
+                        <td><%=item.fullname%></td>
+                        <td><%=item.phone%></td>
+                        <td><%=item.body%></td>
+                    <% end %>
+                </tr>
+            </tbody>
+        <% end %>
+    </table>  
+<% end %>
+
+<% if user_signed_in? %>
+    <%= link_to "New" ,new_friend_path%>
+<% end %>    

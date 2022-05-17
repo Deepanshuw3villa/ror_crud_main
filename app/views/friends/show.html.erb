@@ -1,0 +1,7 @@
+<h1><%=@friend.fullname%></h1>
+<h1><%=@friend.body%></h1>
+<h1><%=@friend.phone%></h1>
+<h1><%=@friend.user_id%></h1>
+
+<%= link_to "edti", edit_friend_path(@friend)%>
+<%= link_to "destroy" ,@friend,method: :delete, data: { confirm: 'Are you sure?' }%>
